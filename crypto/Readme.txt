@@ -1,1 +1,1 @@
-Use this source code only for reference.
+Please use this source code only for reference.
