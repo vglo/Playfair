@@ -1,9 +1,10 @@
 import java.util.*;
 class Playfair{
 static Scanner sc=new Scanner(System.in);
-static String pattern="1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ",key,plain="",cipher="";
+static String pattern="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",key,plain="",cipher="";
 static char[][] mat=new char[6][6];
-static ArrayList<String> slice=new ArrayList<String>(); static ArrayList<String> enc_slice=new ArrayList<String>();
+static ArrayList<String> slice=new ArrayList<String>(); 
+static ArrayList<String> enc_slice=new ArrayList<String>();
 public static void main(String[] a) throws Exception 
 {
 System.out.println("Enter choice, Encryption 'E' or Decryption 'D'");
@@ -30,9 +31,9 @@ static void encrypt() throws Exception
 }
 static void decrypt() throws Exception
 {    System.out.println("Enter cipher text to decrypt, valid symbols are: A-Z and 0-9");
-       cipher=sc.next();
-			split(cipher);decode();
-			System.out.println("Plain text is: "+plain);
+     cipher=sc.next();
+		de_split(cipher);decode();
+		System.out.println("Plain text is: "+plain);
 			
 }
 
@@ -104,8 +105,27 @@ static void split(String text) throws Exception
 	 i+=1;}
 
 	}
- if((i%2==1)&&(i==text.length())){slice.add(""+text.charAt(i-1)+'X');}
+ if(i==text.length()){slice.add(""+text.charAt(i-1)+'X');}
+ 
+ System.out.println("Press Y to print Input slices");
+ if((char)System.in.read()=='Y')
+ {
+ System.out.println("Input text slices are:");
+for (i = 0; i < slice.size(); i++) {
+        System.out.print(slice.get(i) + " ");
+    }
+    System.out.println();
+}
+}
 
+static void de_split(String text) throws Exception
+{
+	int i;
+	for(i=1;i<text.length();)
+	{
+	 slice.add(""+text.charAt(i-1)+text.charAt(i));
+	 i+=2;
+	}
  System.out.println("Press Y to print Input slices");
  if((char)System.in.read()=='Y')
  {
@@ -164,7 +184,6 @@ static void decode() throws Exception
 		        pos1[k]=6*i+j;
 	        }
 	    }
-	    //System.out.println();
 	  }
 	for(int k=0; k<slice.size();k++)
     {int row0=pos0[k]/6, col0=pos0[k]%6;
